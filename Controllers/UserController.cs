@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.Response;
 using Services.Implementation;
 using Services.Interface;
 
@@ -18,59 +19,95 @@ namespace OSR_API.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddUser(User user)
+        public async Task<IActionResult> AddUser(User user)
         {
+            var response = new ApiResponse<User>();
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState); 
+                response.Success = false;
+                response.Message = "Invalid Request Payload..!";
+                return BadRequest(response); 
             }
 
             if (_userService.AddUser(user))
             {
-                return Ok("User added successfully!");
+                response.Success = true;
+                response.Message = "User Added Successfully...!";
+                response.Data = user;
+                return Ok(response);
             }
             else
             {
-                return StatusCode(500, "Error adding user. Please try again."); 
+                response.Success = false;
+                response.Message = "Error adding user. Please try again.";
+                return StatusCode(500, response); 
             }
         }
 
         [HttpPut]
-        public IActionResult UpdateUser(User user)
+        public async Task<IActionResult> UpdateUser(User user)
         {
+            var response = new ApiResponse<User>();
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState); 
+                response.Success = false;
+                response.Message = "Invalid Request Payload..!";
+                return BadRequest(response);
             }
 
             if (_userService.UpdateUser(user))
             {
-                return Ok("User updated successfully!");
+                response.Success = true;
+                response.Message = "User updated successfully!";
+                response.Data = user;
+                return Ok(response);
             }
             else
             {
-                return StatusCode(500, "Error updating user. Please try again.");
+                response.Success = false;
+                response.Message = "Error Updating user. Please try again.";
+                return StatusCode(500, response);
             }
         }
 
         [HttpDelete]
-        public IActionResult DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
+            var response = new ApiResponse<string>();
             if (_userService.DeleteUser(id))
             {
-                return Ok("User deleted successfully!"); 
+                response.Success = true;
+                response.Message = "User Deletion Success";
+                response.Data = "Success Deletion Process";
+                return Ok(response); 
             }
             else
             {
-                return NotFound("User not found."); 
+                response.Success = false;
+                response.Message = "User not found.";
+                response.Data = "Error Occured.. Or User Does Not Exist...";
+                return NotFound(response); 
             }
         }
 
         [HttpGet]
-        public IActionResult GetAllUsers()
+        public async Task<IActionResult> GetAllUsers()
         {
-            var users = _userService.GetAll();
-            return Ok(users); 
+            var response = new ApiResponse<IEnumerable<User>>();
+            try
+            {
+                var users = _userService.GetAll();
+                response.Success = true;
+                response.Message = "All Users";
+                response.Data = users;
+                return Ok(response);
+            } 
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+                return BadRequest(response);
+            }
         }
     }
 }

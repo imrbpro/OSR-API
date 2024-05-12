@@ -19,9 +19,14 @@ namespace OSR_API
             #region Services and Repositories Lifetimes Registerations
             #region Repos
             builder.Services.AddTransient<IUserRepository,UserRepository>();
+            builder.Services.AddTransient<IReadyRepository,ReadyRepository>();
+            builder.Services.AddTransient<IDiscountingRepository,DiscountingRepository>();
             #endregion
             #region Services
             builder.Services.AddTransient<IUserService,UserService>();
+            builder.Services.AddTransient<IAuthService,AuthService>();
+            builder.Services.AddTransient<IReadyService,ReadyService>();
+            builder.Services.AddTransient<IDiscountingService,DiscountingService>();
             #endregion
             #region DB
             builder.Services.AddTransient<IDbHelper, DbHelper>();

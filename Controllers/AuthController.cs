@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Models.dto;
-using OSR_API.Templates;
 using Services.Interface;
 
-using System.DirectoryServices.AccountManagement;
-using System.DirectoryServices;
+//using System.DirectoryServices.AccountManagement;
+//using System.DirectoryServices;
+using Models.Response;
 
 namespace OSR_API.Controllers
 {
