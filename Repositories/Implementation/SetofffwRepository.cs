@@ -3,6 +3,7 @@ using OSR_API.Repositories.Interface;
 using Repositories.Helpers.Interface;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace OSR_API.Repositories.Implementation
 {
@@ -15,50 +16,53 @@ namespace OSR_API.Repositories.Implementation
         }
         public async Task<IEnumerable<Setofffw>> GetSetOffFw()
         {
-            const string storedProcedure = "spGetAllDiscounting";
+            const string storedProcedure = "spGetAllSetOffFw";
             SqlParameter[] sqlParameters = null;
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
+
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
-                return Enumerable.Empty<Setofffw>(); ;
+                return Enumerable.Empty<Setofffw>();
             }
 
-            var SetofffwList = new List<Setofffw>();
+            var setoffList = new List<Setofffw>();
             foreach (DataRow row in dataTable.Rows)
             {
-                SetofffwList.Add(new Setofffw
+                setoffList.Add(new Setofffw
                 {
-                    DealNumber = row["Deal #"]?.ToString(),
-                    TakeDownDate = (DateTime?)row["Take down date"],
+                    DealNumber = row["DealNo"]?.ToString(),
+                    TakeDownDate =  DateTime.ParseExact(row["Take down date"].ToString(), "dd-MMM-yy", CultureInfo.InvariantCulture),
                     BrCode = row["Br Code"]?.ToString(),
                     Curr = row["Curr"]?.ToString(),
                     Type = row["Type"]?.ToString(),
                     Port = row["Port"]?.ToString(),
-                    TakeDownAmount = (decimal)row["Take Down Amount"],
-                    CustomerRate = (decimal)row["Customer Rate"],
-                    EquivalentPKR = (decimal?)row["Equivalent PKR"],
-                    MaturityDate = (DateTime?)row["Maturity Date"],
-                    DealDate = (DateTime?)row["Deal Date"],
-                    OptionDate = (DateTime?)row["Option Date"],
+                    TakeDownAmount = row["Take Down Amount"] is DBNull ? 0 : Convert.ToDecimal(row["Take Down Amount"]),
+                    CustomerRate = row["Customer Rate"] is DBNull ? 0 : Convert.ToDecimal(row["Customer Rate"]),
+                    EquivalentPKR = row["Equivalent PKR"] is DBNull ? null : (decimal?)Convert.ToDecimal(row["Equivalent PKR"]),
+                    MaturityDate = DateTime.ParseExact(row["Maturity Date"].ToString(), "dd-MMM-yy", CultureInfo.InvariantCulture),
+                    DealDate = DateTime.ParseExact(row["Deal Date"].ToString(), "dd-MMM-yy", CultureInfo.InvariantCulture),
+                    OptionDate = DateTime.ParseExact(row["Option Date"].ToString(), "dd-MMM-yy", CultureInfo.InvariantCulture),
                     Customer = row["Customer"]?.ToString(),
-                    TotalBookedDays = (int)row["Total Booked Days"],
-                    TotalOptionDays = (int)row["Total Option Days"],
-                    TotalUtilizeUntilizedDays = (int)row["Total Utilize/Untilized Days"],
-                    PremiumUtilizedProfit = (decimal)row["Premium Utilized Profit"],
-                    TotalPremium = (decimal)row["Total premium"],
-                    Profit = (decimal)row["Profit"],
-                    RemainDays = (int)row["Remain. Days"],
-                    PremiumLoss = (decimal)row["Premium Loss"],
-                    Loss = (decimal)row["Loss"],
-                    WeightedAvgDaysUtilized = (decimal?)row["Weighted Avg Days utilized"],
-                    WeightedAvgDaysUnutilized = (decimal?)row["Weighted Avg Days unutilized"],
+                    TotalBookedDays = row["Total Booked Days"] is DBNull ? 0 : Convert.ToInt32(row["Total Booked Days"]),
+                    TotalOptionDays = row["Total Option Days"] is DBNull ? 0 : Convert.ToInt32(row["Total Option Days"]),
+                    TotalUtilizeUntilizedDays = row["Total Utilize/Untilized Days"] is DBNull ? 0 : Convert.ToInt32(row["Total Utilize/Untilized Days"]),
+                    PremiumUtilizedProfit = row["Premium Utilized"] is DBNull ? 0 : Convert.ToDecimal(row["Premium Utilized"]),
+                    TotalPremium = row["Total premium"] is DBNull ? 0 : Convert.ToDecimal(row["Total premium"]),
+                    Profit = row["Profit"] is DBNull ? 0 : Convert.ToDecimal(row["Profit"]),
+                    RemainDays = row["Remain. Days"] is DBNull ? 0 : Convert.ToInt32(row["Remain. Days"]),
+                    PremiumLoss = row["Premium Loss"] is DBNull ? 0 : Convert.ToDecimal(row["Premium Loss"]),
+                    Loss = row["Loss"] is DBNull ? null : (decimal?)Convert.ToDecimal(row["Loss"]),
+                    WeightedAvgDaysUtilized = row["Weighted Avg Days utilized"] is DBNull ? null : (decimal?)Convert.ToDecimal(row["Weighted Avg Days utilized"]),
+                    WeightedAvgDaysUnutilized = row["Weighted Avg Days unutilized"] is DBNull ? null : (decimal?)Convert.ToDecimal(row["Weighted Avg Days unutilized"]),
                     Remarks = row["Remarks"]?.ToString(),
-                    USDEq = (decimal?)row["USD Eq."],
+                    USDEq = row["USD Eq."] is DBNull ? null : (decimal?)Convert.ToDecimal(row["USD Eq."]),
                     CTRCCY = row["CTRCCY"]?.ToString(),
-                    DealersID = row["Dealers ID"]?.ToString(),
+                    DealersID = row["DealersId"]?.ToString(),
                 });
             }
-            return SetofffwList;
+
+            return setoffList;
         }
+
     }
 }

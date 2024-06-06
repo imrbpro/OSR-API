@@ -1,4 +1,8 @@
 
+using OSR_API.Repositories.Implementation;
+using OSR_API.Repositories.Interface;
+using OSR_API.Services.Implementation;
+using OSR_API.Services.Interface;
 using Repositories.Helpers.Implementation;
 using Repositories.Helpers.Interface;
 using Repositories.Implementation;
@@ -21,12 +25,16 @@ namespace OSR_API
             builder.Services.AddTransient<IUserRepository,UserRepository>();
             builder.Services.AddTransient<IReadyRepository,ReadyRepository>();
             builder.Services.AddTransient<IDiscountingRepository,DiscountingRepository>();
+            builder.Services.AddTransient<IForwardRepository,ForwardRepository>();
+            builder.Services.AddTransient<ISetofffwRepository,SetofffwRepository>();
             #endregion
             #region Services
             builder.Services.AddTransient<IUserService,UserService>();
             builder.Services.AddTransient<IAuthService,AuthService>();
             builder.Services.AddTransient<IReadyService,ReadyService>();
             builder.Services.AddTransient<IDiscountingService,DiscountingService>();
+            builder.Services.AddTransient<IForwardService,ForwardService>();
+            builder.Services.AddTransient<ISetofffwService, SetoffwService>();
             #endregion
             #region DB
             builder.Services.AddTransient<IDbHelper, DbHelper>();
