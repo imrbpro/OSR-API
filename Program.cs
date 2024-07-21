@@ -28,6 +28,7 @@ namespace OSR_API
             builder.Services.AddTransient<IForwardRepository,ForwardRepository>();
             builder.Services.AddTransient<ISetofffwRepository,SetofffwRepository>();
             builder.Services.AddTransient<ICloseoutRepository,CloseoutRepository>();
+            builder.Services.AddTransient<IOutstandingFWDRepository,OutstandingFWDRepository>();
             #endregion
             #region Services
             builder.Services.AddTransient<IUserService,UserService>();
@@ -37,6 +38,7 @@ namespace OSR_API
             builder.Services.AddTransient<IForwardService,ForwardService>();
             builder.Services.AddTransient<ISetofffwService, SetoffwService>();
             builder.Services.AddTransient<ICloseoutService, CloseoutService>();
+            builder.Services.AddTransient<IOutstandingFWDService, OutstandingFWDService>();
             #endregion
             #region DB
             builder.Services.AddTransient<IDbHelper, DbHelper>();
