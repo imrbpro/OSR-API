@@ -17,9 +17,9 @@ namespace Services.Implementation
             _closeoutRepository = closeoutRepository;
         }
 
-        public Task<IEnumerable<Closeout>> GetCloseouts()
+        public Task<IEnumerable<Closeout>> GetCloseouts(String dealNo, String dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, String ccy, String portfolio, String broker, String customer, int orderBy)
         {
-            return _closeoutRepository.GetCloseout();
+            return _closeoutRepository.GetCloseout(dealNo, dealNoTo, contractDate, contractDateTo, valueDate, valueDateTo, entryDate, entryDateTo, ccy, portfolio, broker, customer, orderBy);
         }
     }
 }

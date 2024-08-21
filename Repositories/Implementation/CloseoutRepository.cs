@@ -19,10 +19,25 @@ namespace Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Closeout>> GetCloseout()
+        public async Task<IEnumerable<Closeout>> GetCloseout(String dealNo, String dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, String ccy, String portfolio, String broker, String customer, int orderBy)
         {
-            const string storedProcedure = "spGetAllCloseout";
-            SqlParameter[] sqlParameters = null;
+            const string storedProcedure = "GetCloseOut";
+            SqlParameter[] sqlParameters =  new SqlParameter[]
+        {
+            new SqlParameter("@dealNo", dealNo),
+            new SqlParameter("@dealNoTo", dealNoTo), 
+            new SqlParameter("@ContractDate", contractDate),
+            new SqlParameter("@ContractDateTo", contractDateTo), 
+            new SqlParameter("@ValueDate", valueDate),
+            new SqlParameter("@ValueDateTo", valueDateTo), 
+            new SqlParameter("@EntryDate", entryDate),
+            new SqlParameter("@EntryDateTo", entryDateTo), 
+            new SqlParameter("@CCY", ccy),
+            new SqlParameter("@PortFolio", portfolio),
+            new SqlParameter("@Broker", broker), 
+            new SqlParameter("@Customer", customer),
+            new SqlParameter("@OrderBy", orderBy) 
+        };
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
 
             if (dataTable == null || dataTable.Rows.Count == 0)
