@@ -18,12 +18,12 @@ namespace OSR_API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetForward()
+        public async Task<IActionResult> GetForward(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime oDate, DateTime oDateTo, DateTime valueDate, DateTime valueDateTo, string ccy, string portFolio, string broker, string trader, string customer, int orderBy)
         {
             var response = new ApiResponse<IEnumerable<Forward>>();
             try
             {
-                var result = await _forwardService.GetForward();
+                var result = await _forwardService.GetForward(dealNo, dealNoTo, dealDate, dealDateTo, oDate, oDateTo, valueDate, valueDateTo, ccy, portFolio, broker, trader, customer, orderBy);
                 if (result == null)
                 {
                     response.Success = false;

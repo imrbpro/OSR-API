@@ -14,10 +14,27 @@ namespace OSR_API.Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Forward>> GetForward()
+        public async Task<IEnumerable<Forward>> GetForward(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime oDate, DateTime oDateTo, DateTime valueDate, DateTime valueDateTo, string ccy, string portFolio, string broker, string trader, string customer, int orderBy)
         {
-            const string storedProcedure = "spGetAllForward";
-            SqlParameter[] sqlParameters = null;
+            const string storedProcedure = "GetDailyForwardReport";
+
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@dealNo", SqlDbType.VarChar, 255) { Value = dealNo },
+                new SqlParameter("@dealNoTo", SqlDbType.VarChar, 255) { Value = dealNoTo },
+                new SqlParameter("@dealDate", SqlDbType.DateTime) { Value = dealDate },
+                new SqlParameter("@dealDateTo", SqlDbType.DateTime) { Value = dealDateTo },
+                new SqlParameter("@oDate", SqlDbType.DateTime) { Value = oDate },
+                new SqlParameter("@oDateTo", SqlDbType.DateTime) { Value = oDateTo },
+                new SqlParameter("@valueDate", SqlDbType.DateTime) { Value = valueDate },
+                new SqlParameter("@valueDateTo", SqlDbType.DateTime) { Value = valueDateTo },
+                new SqlParameter("@ccy", SqlDbType.VarChar, 255) { Value = ccy },
+                new SqlParameter("@portFolio", SqlDbType.VarChar, 255) { Value = portFolio },
+                new SqlParameter("@broker", SqlDbType.VarChar, 255) { Value = broker },
+                new SqlParameter("@trader", SqlDbType.VarChar, 255) { Value = trader },
+                new SqlParameter("@customer", SqlDbType.VarChar, 255) { Value = customer },
+                new SqlParameter("@orderBy", SqlDbType.Int) { Value = orderBy }
+            };
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
