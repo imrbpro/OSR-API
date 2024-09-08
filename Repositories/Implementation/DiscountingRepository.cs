@@ -19,10 +19,27 @@ namespace Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Discounting>> GetDiscounting()
+        public async Task<IEnumerable<Discounting>> GetDiscounting(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime valueDate, DateTime valueDateTo, string brCode, string ccy, string portFolio, string broker, string trader, string customer, char ps, int orderBy)
         {
-            const string storedProcedure = "spGetAllDiscounting";
-            SqlParameter[] sqlParameters = null;
+            const string storedProcedure = "GetDailyDiscountingReport";
+
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@dealNo", dealNo),
+                new SqlParameter("@dealNoTo", dealNoTo),
+                new SqlParameter("@dealDate", dealDate),
+                new SqlParameter("@dealDateTo", dealDateTo),
+                new SqlParameter("@valueDate", valueDate),
+                new SqlParameter("@valueDateTo", valueDateTo),
+                new SqlParameter("@brCode", brCode),
+                new SqlParameter("@ccy", ccy),
+                new SqlParameter("@portFolio", portFolio),
+                new SqlParameter("@broker", broker),
+                new SqlParameter("@trader", trader),
+                new SqlParameter("@customer", customer),
+                new SqlParameter("@ps", ps),
+                new SqlParameter("@orderBy", orderBy)
+            };
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
             if (dataTable == null || dataTable.Rows.Count == 0)
             {

@@ -9,6 +9,6 @@ namespace Services.Interface
 {
     public interface IDiscountingService
     {
-        Task<IEnumerable<Discounting>> GetDiscounting();
+        Task<IEnumerable<Discounting>> GetDiscounting(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime valueDate, DateTime valueDateTo, string brCode, string ccy, string portFolio, string broker, string trader, string customer, char ps, int orderBy);
     }
 }
