@@ -16,7 +16,7 @@ namespace OSR_API.Repositories.Implementation
         }
         public async Task<IEnumerable<Forward>> GetForward(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime oDate, DateTime oDateTo, DateTime valueDate, DateTime valueDateTo, string ccy, string portFolio, string broker, string trader, string customer, int orderBy)
         {
-            const string storedProcedure = "GetDailyForwardReport";
+            const string storedProcedure = "OutstandingFWDsFW";
 
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
