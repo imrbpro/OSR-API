@@ -19,14 +19,29 @@ namespace Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Ready>> GetReady()
+        public async Task<IEnumerable<Ready>> GetReady(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime valueDate, DateTime valueDateTo, string brCode, string ccy, string portFolio, string trader, string customer, char ps, int orderBy)
         {
-            const string storedProcedure = "spGetAllReady"; 
-            SqlParameter[] parameters = null;
+            const string storedProcedure = "GetDailyReadyReport";
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@dealNo", dealNo),
+                new SqlParameter("@dealNoTo", dealNoTo),
+                new SqlParameter("@dealDate", dealDate),
+                new SqlParameter("@dealDateTo", dealDateTo),
+                new SqlParameter("@valueDate", valueDate),
+                new SqlParameter("@valueDateTo", valueDateTo),
+                new SqlParameter("@brCode", brCode),
+                new SqlParameter("@ccy", ccy),
+                new SqlParameter("@portFolio", portFolio),
+                new SqlParameter("@trader", trader),
+                new SqlParameter("@customer", customer),
+                new SqlParameter("@PS", ps),
+                new SqlParameter("@orderBy", orderBy)
+            };
             var dataTable = await _dbHelper.Get(storedProcedure, parameters);
             if (dataTable == null || dataTable.Rows.Count == 0)
             {
-                return Enumerable.Empty<Ready>(); 
+                return Enumerable.Empty<Ready>();
             }
             var readyList = new List<Ready>();
             foreach (DataRow row in dataTable.Rows)

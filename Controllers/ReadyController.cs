@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Response;
 using Services.Interface;
+using System.Diagnostics;
 
 namespace OSR_API.Controllers
 {
@@ -17,12 +18,12 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetReady() 
+        public async Task<IActionResult> GetReady(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime valueDate, DateTime valueDateTo, string brCode, string ccy, string portFolio, string trader, string customer, char ps, int orderBy)
         {
             var response = new ApiResponse<IEnumerable<Ready>>();
             try
             {
-                var result = await _readyService.GetReady();
+                var result = await _readyService.GetReady(dealNo, dealNoTo, dealDate, dealDateTo, valueDate, valueDateTo, brCode, ccy, portFolio, trader, customer, ps, orderBy);
                 if(result == null)
                 {
                     response.Success = false;
