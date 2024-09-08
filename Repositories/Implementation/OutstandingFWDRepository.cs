@@ -20,10 +20,26 @@ namespace Repositories.Implementation
             _dbHelper = dbHelper;
         }
 
-        public async Task<IEnumerable<OutstandingFWD>> GetOuttandingFWD()
+        public async Task<IEnumerable<OutstandingFWD>> GetOuttandingFWD(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portFolio, string branchcode, string trader, string customer, int orderBy)
         {
-            const string storedProcedure = "spGetAllOutstandingFWD";
-            SqlParameter[] sqlParameters = null;
+            const string storedProcedure = "OutstandingFWDsFW";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+           {
+                new SqlParameter("@dealNo", dealNo),
+                new SqlParameter("@dealNoTo", dealNoTo),
+                new SqlParameter("@contractDate", contractDate),
+                new SqlParameter("@contractDateTo", contractDateTo),
+                new SqlParameter("@valueDate", valueDate),
+                new SqlParameter("@valueDateTo", valueDateTo),
+                new SqlParameter("@entryDate", entryDate),
+                new SqlParameter("@entryDateTo", entryDateTo),
+                new SqlParameter("@CCY", ccy),
+                new SqlParameter("@PortFolio", portFolio),
+                new SqlParameter("@Branchcode", branchcode),
+                new SqlParameter("@trader", trader),
+                new SqlParameter("@Customer", customer),
+                new SqlParameter("@OrderBy", orderBy)
+           };
 
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
             if (dataTable == null || dataTable.Rows.Count == 0)

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Response;
 using Services.Interface;
+using System.Diagnostics;
 
 namespace OSR_API.Controllers
 {
@@ -17,12 +18,12 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOutstandingFWD()
+        public async Task<IActionResult> GetOutstandingFWD(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portFolio, string branchcode, string trader, string customer, int orderBy)
         {
             var response = new ApiResponse<IEnumerable<OutstandingFWD>>();
             try
             {
-                var result = await _outstandingFWDService.GetOutstandingFWD();
+                var result = await _outstandingFWDService.GetOutstandingFWD(dealNo, dealNoTo, contractDate, contractDateTo, valueDate, valueDateTo, entryDate, entryDateTo, ccy, portFolio, branchcode, trader, customer, orderBy);
                 if (result == null)
                 {
                     response.Success = false;

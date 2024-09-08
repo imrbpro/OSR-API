@@ -16,9 +16,9 @@ namespace Services.Implementation
         { 
             _outstandingFWDRepository = outstandingFWDRepository;
         }
-        public Task<IEnumerable<OutstandingFWD>> GetOutstandingFWD()
+        public Task<IEnumerable<OutstandingFWD>> GetOutstandingFWD(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portFolio, string branchcode, string trader, string customer, int orderBy)
         {
-            return _outstandingFWDRepository.GetOuttandingFWD();
+            return _outstandingFWDRepository.GetOuttandingFWD(dealNo, dealNoTo, contractDate, contractDateTo, valueDate, valueDateTo, entryDate, entryDateTo, ccy, portFolio, branchcode, trader, customer, orderBy);
         }
     }
 }
