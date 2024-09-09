@@ -12,9 +12,9 @@ namespace OSR_API.Services.Implementation
             _SetofffwRepository = SetofffwRepository;
         }
 
-        public Task<IEnumerable<Setofffw>> GetSetofffw()
+        public Task<IEnumerable<Setofffw>> GetSetofffw(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portfolio, string trad, string customer, int orderBy)
         {
-            return _SetofffwRepository.GetSetOffFw();
+            return _SetofffwRepository.GetSetOffFw(dealNo, dealNoTo, contractDate, contractDateTo, valueDate, valueDateTo, entryDate, entryDateTo, ccy, portfolio, trad, customer, orderBy);
         }
     }
 }

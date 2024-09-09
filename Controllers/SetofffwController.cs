@@ -17,12 +17,12 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSetofffw()
+        public async Task<IActionResult> GetSetofffw(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portfolio, string trad, string customer, int orderBy)
         {
             var response = new ApiResponse<IEnumerable<Setofffw>>();
             try
             {
-                var result = await _setofffwService.GetSetofffw();
+                var result = await _setofffwService.GetSetofffw(dealNo, dealNoTo, contractDate, contractDateTo, valueDate, valueDateTo, entryDate, entryDateTo, ccy, portfolio, trad, customer, orderBy);
                 if (result == null)
                 {
                     response.Success = false;

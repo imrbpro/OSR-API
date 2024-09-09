@@ -14,10 +14,25 @@ namespace OSR_API.Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Setofffw>> GetSetOffFw()
+        public async Task<IEnumerable<Setofffw>> GetSetOffFw(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portfolio, string trad, string customer, int orderBy)
         {
-            const string storedProcedure = "spGetAllSetOffFw";
-            SqlParameter[] sqlParameters = null;
+            const string storedProcedure = "GetSetofffwd";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@dealNo", dealNo),
+                new SqlParameter("@dealNoTo", dealNoTo),
+                new SqlParameter("@ContractDate", contractDate),
+                new SqlParameter("@ContractDateTo", contractDateTo),
+                new SqlParameter("@ValueDate", valueDate),
+                new SqlParameter("@ValueDateto", valueDateTo),
+                new SqlParameter("@EntryDate", entryDate),
+                new SqlParameter("@EntryDateTo", entryDateTo),
+                new SqlParameter("@CCY", ccy),
+                new SqlParameter("@PortFolio", portfolio),
+                new SqlParameter("@Trad", trad),
+                new SqlParameter("@Customer", customer),
+                new SqlParameter("@OrderBy", orderBy)
+            };
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
 
             if (dataTable == null || dataTable.Rows.Count == 0)
