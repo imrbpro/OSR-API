@@ -19,7 +19,7 @@ namespace OSR_API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetForward(ForwardDto forward)
+        public async Task<IActionResult> GetForward([FromBody] ForwardDto forward)
         {
             var response = new ApiResponse<IEnumerable<Forward>>();
             try
