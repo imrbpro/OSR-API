@@ -1,9 +1,10 @@
 ﻿using OSR_API.Models;
+using OSR_API.Models.dto;
 
 namespace OSR_API.Repositories.Interface
 {
     public interface IForwardRepository
     {
-        Task<IEnumerable<Forward>> GetForward(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime oDate, DateTime oDateTo, DateTime valueDate, DateTime valueDateTo, string ccy, string portFolio, string broker, string trader, string customer, int orderBy);
+        Task<IEnumerable<Forward>> GetForward(ForwardDto forward);
     }
 }

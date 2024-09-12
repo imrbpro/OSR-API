@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models.Response;
 using OSR_API.Models;
+using OSR_API.Models.dto;
 using OSR_API.Services.Interface;
 
 namespace OSR_API.Controllers
@@ -18,12 +19,12 @@ namespace OSR_API.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetForward(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime oDate, DateTime oDateTo, DateTime valueDate, DateTime valueDateTo, string ccy, string portFolio, string broker, string trader, string customer, int orderBy)
+        public async Task<IActionResult> GetForward(ForwardDto forward)
         {
             var response = new ApiResponse<IEnumerable<Forward>>();
             try
             {
-                var result = await _forwardService.GetForward(dealNo, dealNoTo, dealDate, dealDateTo, oDate, oDateTo, valueDate, valueDateTo, ccy, portFolio, broker, trader, customer, orderBy);
+                var result = await _forwardService.GetForward(forward);
                 if (result == null)
                 {
                     response.Success = false;
