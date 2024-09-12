@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Response;
+using OSR_API.Models.dto;
 using Services.Implementation;
 using Services.Interface;
 
@@ -18,12 +19,12 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetDiscounting(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime valueDate, DateTime valueDateTo, string brCode, string ccy, string portFolio, string broker, string trader, string customer, char ps, int orderBy)
+        public async Task<IActionResult> GetDiscounting([FromBody] DiscountingDto discounting)
         {
             var response = new ApiResponse<IEnumerable<Discounting>>();
             try
             {
-                var result = await _discountingService.GetDiscounting(dealNo, dealNoTo, dealDate, dealDateTo, valueDate, valueDateTo, brCode, ccy, portFolio, broker, trader, customer, ps, orderBy);
+                var result = await _discountingService.GetDiscounting(discounting);
                 if (result == null)
                 {
                     response.Success = false;

@@ -1,4 +1,5 @@
 ﻿using Models;
+using OSR_API.Models.dto;
 using Repositories.Helpers.Interface;
 using Repositories.Interface;
 using System;
@@ -19,26 +20,26 @@ namespace Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Discounting>> GetDiscounting(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime valueDate, DateTime valueDateTo, string brCode, string ccy, string portFolio, string broker, string trader, string customer, char ps, int orderBy)
+        public async Task<IEnumerable<Discounting>> GetDiscounting(DiscountingDto discounting)
         {
             const string storedProcedure = "GetDailyDiscountingReport";
 
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
-                new SqlParameter("@dealNo", dealNo),
-                new SqlParameter("@dealNoTo", dealNoTo),
-                new SqlParameter("@dealDate", dealDate),
-                new SqlParameter("@dealDateTo", dealDateTo),
-                new SqlParameter("@valueDate", valueDate),
-                new SqlParameter("@valueDateTo", valueDateTo),
-                new SqlParameter("@brCode", brCode),
-                new SqlParameter("@ccy", ccy),
-                new SqlParameter("@portFolio", portFolio),
-                new SqlParameter("@broker", broker),
-                new SqlParameter("@trader", trader),
-                new SqlParameter("@customer", customer),
-                new SqlParameter("@ps", ps),
-                new SqlParameter("@orderBy", orderBy)
+                new SqlParameter("@dealNo", discounting.DealNo),
+                new SqlParameter("@dealNoTo", discounting.DealNoTo),
+                new SqlParameter("@dealDate", discounting.DealDate),
+                new SqlParameter("@dealDateTo", discounting.DealDateTo),
+                new SqlParameter("@valueDate", discounting.ValueDate),
+                new SqlParameter("@valueDateTo", discounting.ValueDateTo),
+                new SqlParameter("@brCode", discounting.BrCode),
+                new SqlParameter("@ccy", discounting.Ccy),
+                new SqlParameter("@portFolio", discounting.PortFolio),
+                new SqlParameter("@broker", discounting.Broker),
+                new SqlParameter("@trader", discounting.Trader),
+                new SqlParameter("@customer", discounting.Customer),
+                new SqlParameter("@ps", discounting.Ps),
+                new SqlParameter("@orderBy", discounting.OrderBy)
             };
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
             if (dataTable == null || dataTable.Rows.Count == 0)
