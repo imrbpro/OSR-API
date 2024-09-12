@@ -1,4 +1,5 @@
 ﻿using Models;
+using OSR_API.Models.dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Services.Interface
 {
     public interface ICloseoutService
     {
-        Task<IEnumerable<Closeout>> GetCloseouts(String dealNo, String dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, String ccy, String portfolio, String broker, String customer, int orderBy);
+        Task<IEnumerable<Closeout>> GetCloseouts(CloseoutDto closeout);
     }
 }

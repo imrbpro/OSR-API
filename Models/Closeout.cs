@@ -22,7 +22,7 @@ namespace Models
         public string CCY { get; set; }
         public decimal AMOUNT { get; set; }
         public decimal CUSTRATE { get; set; }
-        public decimal TotalPremuim { get; set; }
+        public string TotalPremuim { get; set; }
         public decimal EQUIVPKR { get; set; }
         public string CUSTOMER { get; set; }
         public string Remarks { get; set; }

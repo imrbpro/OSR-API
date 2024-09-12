@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.Response;
+using OSR_API.Models.dto;
 using Services.Interface;
 
 namespace OSR_API.Controllers
@@ -17,12 +18,12 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCloseout(String dealNo, String dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, String ccy, String portfolio, String broker, String customer, int orderBy)
+        public async Task<IActionResult> GetCloseout([FromBody] CloseoutDto closeout)
         {
             var response = new ApiResponse<IEnumerable<Closeout>>();
             try
             {
-                var result = await _closeoutService.GetCloseouts(dealNo, dealNoTo, contractDate, contractDateTo, valueDate, valueDateTo, entryDate, entryDateTo, ccy, portfolio, broker, customer, orderBy);
+                var result = await _closeoutService.GetCloseouts(closeout);
                 if (result == null)
                 {
                     response.Success = false;

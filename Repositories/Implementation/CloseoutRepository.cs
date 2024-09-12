@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OSR_API.Models.dto;
 
 namespace Repositories.Implementation
 {
@@ -19,24 +20,24 @@ namespace Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Closeout>> GetCloseout(String dealNo, String dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, String ccy, String portfolio, String broker, String customer, int orderBy)
+        public async Task<IEnumerable<Closeout>> GetCloseout(CloseoutDto closeout)
         {
             const string storedProcedure = "GetCloseOut";
             SqlParameter[] sqlParameters =  new SqlParameter[]
         {
-            new SqlParameter("@dealNo", dealNo),
-            new SqlParameter("@dealNoTo", dealNoTo), 
-            new SqlParameter("@ContractDate", contractDate),
-            new SqlParameter("@ContractDateTo", contractDateTo), 
-            new SqlParameter("@ValueDate", valueDate),
-            new SqlParameter("@ValueDateTo", valueDateTo), 
-            new SqlParameter("@EntryDate", entryDate),
-            new SqlParameter("@EntryDateTo", entryDateTo), 
-            new SqlParameter("@CCY", ccy),
-            new SqlParameter("@PortFolio", portfolio),
-            new SqlParameter("@Broker", broker), 
-            new SqlParameter("@Customer", customer),
-            new SqlParameter("@OrderBy", orderBy) 
+            new SqlParameter("@dealNo", closeout.DealNo),
+            new SqlParameter("@dealNoTo", closeout.DealNoTo), 
+            new SqlParameter("@ContractDate", closeout.ContractDate),
+            new SqlParameter("@ContractDateTo", closeout.ContractDateTo), 
+            new SqlParameter("@ValueDate", closeout.ValueDate),
+            new SqlParameter("@ValueDateTo", closeout.ValueDateTo), 
+            new SqlParameter("@EntryDate", closeout.EntryDate),
+            new SqlParameter("@EntryDateTo", closeout.EntryDateTo), 
+            new SqlParameter("@CCY", closeout.Ccy),
+            new SqlParameter("@PortFolio", closeout.Portfolio),
+            new SqlParameter("@Broker", closeout.Broker), 
+            new SqlParameter("@Customer", closeout.Customer),
+            new SqlParameter("@OrderBy", closeout.OrderBy) 
         };
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
 
@@ -64,7 +65,7 @@ namespace Repositories.Implementation
                     CCY = row["CCY"].ToString(),
                     AMOUNT = Convert.ToDecimal(row["AMOUNT"]),
                     CUSTRATE = Convert.ToDecimal(row["CUSTRATE"]),
-                    TotalPremuim = Convert.ToDecimal(row["TotalPremuim"]),
+                    TotalPremuim = row["TotalPremuim"].ToString(),
                     EQUIVPKR = Convert.ToDecimal(row["EQUIVPKR"]),
                     CUSTOMER = row["CUSTOMER"].ToString(),
                     Remarks = row["Remarks"].ToString()
