@@ -17,7 +17,7 @@ namespace OSR_API.Controllers
             _closeoutService = closeoutService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetCloseout([FromBody] CloseoutDto closeout)
         {
             var response = new ApiResponse<IEnumerable<Closeout>>();

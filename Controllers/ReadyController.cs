@@ -18,7 +18,7 @@ namespace OSR_API.Controllers
             _readyService = readyService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetReady([FromBody] ReadyDto ready)
         {
             var response = new ApiResponse<IEnumerable<Ready>>();

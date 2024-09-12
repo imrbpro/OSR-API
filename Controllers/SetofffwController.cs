@@ -17,7 +17,7 @@ namespace OSR_API.Controllers
             _setofffwService = setofffwService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetSetofffw([FromBody] SetOffDto setOff)
         {
             var response = new ApiResponse<IEnumerable<Setofffw>>();

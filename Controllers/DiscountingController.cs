@@ -18,7 +18,7 @@ namespace OSR_API.Controllers
             _discountingService = discountingService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetDiscounting([FromBody] DiscountingDto discounting)
         {
             var response = new ApiResponse<IEnumerable<Discounting>>();

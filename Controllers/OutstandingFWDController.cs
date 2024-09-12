@@ -18,7 +18,7 @@ namespace OSR_API.Controllers
             _outstandingFWDService = outstandingFWDService;
         }
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> GetOutstandingFWD([FromBody] OutstandingDto outstanding)
         {
             var response = new ApiResponse<IEnumerable<OutstandingFWD>>();
