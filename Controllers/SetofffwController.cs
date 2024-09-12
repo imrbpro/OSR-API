@@ -18,7 +18,7 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSetofffw(SetOffDto setOff)
+        public async Task<IActionResult> GetSetofffw([FromBody] SetOffDto setOff)
         {
             var response = new ApiResponse<IEnumerable<Setofffw>>();
             try

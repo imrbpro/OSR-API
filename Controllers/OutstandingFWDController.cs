@@ -19,7 +19,7 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOutstandingFWD(OutstandingDto outstanding)
+        public async Task<IActionResult> GetOutstandingFWD([FromBody] OutstandingDto outstanding)
         {
             var response = new ApiResponse<IEnumerable<OutstandingFWD>>();
             try

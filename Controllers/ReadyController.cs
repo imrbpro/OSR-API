@@ -19,7 +19,7 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetReady(ReadyDto ready)
+        public async Task<IActionResult> GetReady([FromBody] ReadyDto ready)
         {
             var response = new ApiResponse<IEnumerable<Ready>>();
             try
