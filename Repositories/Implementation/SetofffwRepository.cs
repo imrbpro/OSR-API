@@ -1,4 +1,5 @@
 ﻿using OSR_API.Models;
+using OSR_API.Models.dto;
 using OSR_API.Repositories.Interface;
 using Repositories.Helpers.Interface;
 using System.Data;
@@ -14,24 +15,24 @@ namespace OSR_API.Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Setofffw>> GetSetOffFw(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portfolio, string trad, string customer, int orderBy)
+        public async Task<IEnumerable<Setofffw>> GetSetOffFw(SetOffDto setOff)
         {
             const string storedProcedure = "GetSetofffwd";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
-                new SqlParameter("@dealNo", dealNo),
-                new SqlParameter("@dealNoTo", dealNoTo),
-                new SqlParameter("@ContractDate", contractDate),
-                new SqlParameter("@ContractDateTo", contractDateTo),
-                new SqlParameter("@ValueDate", valueDate),
-                new SqlParameter("@ValueDateto", valueDateTo),
-                new SqlParameter("@EntryDate", entryDate),
-                new SqlParameter("@EntryDateTo", entryDateTo),
-                new SqlParameter("@CCY", ccy),
-                new SqlParameter("@PortFolio", portfolio),
-                new SqlParameter("@Trad", trad),
-                new SqlParameter("@Customer", customer),
-                new SqlParameter("@OrderBy", orderBy)
+                new SqlParameter("@dealNo", setOff.DealNo),
+                new SqlParameter("@dealNoTo", setOff.DealNoTo),
+                new SqlParameter("@ContractDate", setOff.ContractDate),
+                new SqlParameter("@ContractDateTo", setOff.ContractDateTo),
+                new SqlParameter("@ValueDate", setOff.ValueDate),
+                new SqlParameter("@ValueDateto", setOff.ValueDateTo),
+                new SqlParameter("@EntryDate", setOff.EntryDate),
+                new SqlParameter("@EntryDateTo", setOff.EntryDateTo),
+                new SqlParameter("@CCY", setOff.Ccy),
+                new SqlParameter("@PortFolio", setOff.Portfolio),
+                new SqlParameter("@Trad", setOff.Trad),
+                new SqlParameter("@Customer", setOff.Customer),
+                new SqlParameter("@OrderBy", setOff.OrderBy)
             };
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);
 

@@ -9,6 +9,7 @@ using Repositories.Helpers.Implementation;
 using Models;
 using Repositories.Interface;
 using Repositories.Helpers.Interface;
+using OSR_API.Models.dto;
 
 namespace Repositories.Implementation
 {
@@ -20,25 +21,25 @@ namespace Repositories.Implementation
             _dbHelper = dbHelper;
         }
 
-        public async Task<IEnumerable<OutstandingFWD>> GetOuttandingFWD(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portFolio, string branchcode, string trader, string customer, int orderBy)
+        public async Task<IEnumerable<OutstandingFWD>> GetOuttandingFWD(OutstandingDto outstanding)
         {
             const string storedProcedure = "OutstandingFWDsFW";
             SqlParameter[] sqlParameters = new SqlParameter[]
            {
-                new SqlParameter("@dealNo", dealNo),
-                new SqlParameter("@dealNoTo", dealNoTo),
-                new SqlParameter("@contractDate", contractDate),
-                new SqlParameter("@contractDateTo", contractDateTo),
-                new SqlParameter("@valueDate", valueDate),
-                new SqlParameter("@valueDateTo", valueDateTo),
-                new SqlParameter("@entryDate", entryDate),
-                new SqlParameter("@entryDateTo", entryDateTo),
-                new SqlParameter("@CCY", ccy),
-                new SqlParameter("@PortFolio", portFolio),
-                new SqlParameter("@Branchcode", branchcode),
-                new SqlParameter("@trader", trader),
-                new SqlParameter("@Customer", customer),
-                new SqlParameter("@OrderBy", orderBy)
+                new SqlParameter("@dealNo", outstanding.DealNo),
+                new SqlParameter("@dealNoTo", outstanding.DealNoTo),
+                new SqlParameter("@contractDate", outstanding.ContractDate),
+                new SqlParameter("@contractDateTo", outstanding.ContractDateTo),
+                new SqlParameter("@valueDate", outstanding.ValueDate),
+                new SqlParameter("@valueDateTo", outstanding.ValueDateTo),
+                new SqlParameter("@entryDate", outstanding.EntryDate),
+                new SqlParameter("@entryDateTo", outstanding.EntryDateTo),
+                new SqlParameter("@CCY", outstanding.Ccy),
+                new SqlParameter("@PortFolio", outstanding.PortFolio),
+                new SqlParameter("@Branchcode", outstanding.BranchCode),
+                new SqlParameter("@trader", outstanding.Trader),
+                new SqlParameter("@Customer", outstanding.Customer),
+                new SqlParameter("@OrderBy", outstanding.OrderBy)
            };
 
             var dataTable = await _dbHelper.Get(storedProcedure, sqlParameters);

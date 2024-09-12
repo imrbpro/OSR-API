@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Repositories.Helpers.Interface;
 using System.Globalization;
+using Models.dto;
 
 namespace Repositories.Implementation
 {
@@ -19,24 +20,24 @@ namespace Repositories.Implementation
         {
             _dbHelper = dbHelper;
         }
-        public async Task<IEnumerable<Ready>> GetReady(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime valueDate, DateTime valueDateTo, string brCode, string ccy, string portFolio, string trader, string customer, char ps, int orderBy)
+        public async Task<IEnumerable<Ready>> GetReady(ReadyDto ready)
         {
             const string storedProcedure = "GetDailyReadyReport";
             SqlParameter[] parameters = new SqlParameter[]
             {
-                new SqlParameter("@dealNo", dealNo),
-                new SqlParameter("@dealNoTo", dealNoTo),
-                new SqlParameter("@dealDate", dealDate),
-                new SqlParameter("@dealDateTo", dealDateTo),
-                new SqlParameter("@valueDate", valueDate),
-                new SqlParameter("@valueDateTo", valueDateTo),
-                new SqlParameter("@brCode", brCode),
-                new SqlParameter("@ccy", ccy),
-                new SqlParameter("@portFolio", portFolio),
-                new SqlParameter("@trader", trader),
-                new SqlParameter("@customer", customer),
-                new SqlParameter("@PS", ps),
-                new SqlParameter("@orderBy", orderBy)
+                new SqlParameter("@dealNo", ready.DealNo),
+                new SqlParameter("@dealNoTo", ready.DealNoTo),
+                new SqlParameter("@dealDate", ready.DealDate),
+                new SqlParameter("@dealDateTo", ready.DealDateTo),
+                new SqlParameter("@valueDate", ready.ValueDate),
+                new SqlParameter("@valueDateTo", ready.ValueDateTo),
+                new SqlParameter("@brCode", ready.BrCode),
+                new SqlParameter("@ccy", ready.Ccy),
+                new SqlParameter("@portFolio", ready.PortFolio),
+                new SqlParameter("@trader", ready.Trader),
+                new SqlParameter("@customer", ready.Customer),
+                new SqlParameter("@PS", ready.Ps),
+                new SqlParameter("@orderBy", ready.OrderBy)
             };
             var dataTable = await _dbHelper.Get(storedProcedure, parameters);
             if (dataTable == null || dataTable.Rows.Count == 0)

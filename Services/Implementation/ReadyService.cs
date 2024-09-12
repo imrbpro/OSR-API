@@ -1,4 +1,5 @@
 ﻿using Models;
+using Models.dto;
 using Repositories.Interface;
 using Services.Interface;
 using System;
@@ -16,9 +17,9 @@ namespace Services.Implementation
         {
             _readyRepository = readyRepository;
         }
-        public Task<IEnumerable<Ready>> GetReady(string dealNo, string dealNoTo, DateTime dealDate, DateTime dealDateTo, DateTime valueDate, DateTime valueDateTo, string brCode, string ccy, string portFolio, string trader, string customer, char ps, int orderBy)
+        public Task<IEnumerable<Ready>> GetReady(ReadyDto ready)
         {
-            return _readyRepository.GetReady(dealNo, dealNoTo, dealDate, dealDateTo, valueDate, valueDateTo, brCode, ccy, portFolio, trader, customer, ps, orderBy);
+            return _readyRepository.GetReady(ready);
         }
     }
 }

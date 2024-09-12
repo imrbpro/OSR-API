@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models.Response;
 using OSR_API.Models;
+using OSR_API.Models.dto;
 using OSR_API.Services.Interface;
 
 namespace OSR_API.Controllers
@@ -17,12 +18,12 @@ namespace OSR_API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetSetofffw(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portfolio, string trad, string customer, int orderBy)
+        public async Task<IActionResult> GetSetofffw(SetOffDto setOff)
         {
             var response = new ApiResponse<IEnumerable<Setofffw>>();
             try
             {
-                var result = await _setofffwService.GetSetofffw(dealNo, dealNoTo, contractDate, contractDateTo, valueDate, valueDateTo, entryDate, entryDateTo, ccy, portfolio, trad, customer, orderBy);
+                var result = await _setofffwService.GetSetofffw(setOff);
                 if (result == null)
                 {
                     response.Success = false;

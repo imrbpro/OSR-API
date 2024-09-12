@@ -1,4 +1,5 @@
 ﻿using OSR_API.Models;
+using OSR_API.Models.dto;
 using OSR_API.Repositories.Interface;
 using OSR_API.Services.Interface;
 
@@ -12,9 +13,9 @@ namespace OSR_API.Services.Implementation
             _SetofffwRepository = SetofffwRepository;
         }
 
-        public Task<IEnumerable<Setofffw>> GetSetofffw(string dealNo, string dealNoTo, DateTime contractDate, DateTime contractDateTo, DateTime valueDate, DateTime valueDateTo, DateTime entryDate, DateTime entryDateTo, string ccy, string portfolio, string trad, string customer, int orderBy)
+        public Task<IEnumerable<Setofffw>> GetSetofffw(SetOffDto setOff)
         {
-            return _SetofffwRepository.GetSetOffFw(dealNo, dealNoTo, contractDate, contractDateTo, valueDate, valueDateTo, entryDate, entryDateTo, ccy, portfolio, trad, customer, orderBy);
+            return _SetofffwRepository.GetSetOffFw(setOff);
         }
     }
 }
