@@ -4,12 +4,12 @@
     {
         public string? DealNo { get; set; } = "";
         public string? DealNoTo { get; set; } = "";
-        public DateTime? ContractDate { get; set; }
-        public DateTime? ContractDateTo { get; set; } 
-        public DateTime? ValueDate { get; set; }
-        public DateTime? ValueDateTo { get; set; }
-        public DateTime? EntryDate { get; set; }
-        public DateTime? EntryDateTo { get; set; }
+        public string? ContractDate { get; set; } = "";
+        public string? ContractDateTo { get; set; } = "";
+        public string? ValueDate { get; set; } = "";
+        public string? ValueDateTo { get; set; } = "";
+        public string? EntryDate { get; set; } = "";
+        public string? EntryDateTo { get; set; } = "";  
         public string? Ccy { get; set; } = "";
         public string? Portfolio { get; set; } = "";
         public string? Broker { get; set; } = "";
